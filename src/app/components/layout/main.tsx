@@ -6,7 +6,7 @@ type MainProps = {
 
 export default function Main({ children }: MainProps) {
   return (
-    <Box as='main' minH='90vh' p={4}>
+    <Box as='main' minH='90vh' px={8}>
       {children}
     </Box>
   )

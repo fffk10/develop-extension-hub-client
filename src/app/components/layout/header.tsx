@@ -7,13 +7,15 @@ export default function Header() {
     <Flex
       as='header'
       height='64px'
-      py='12px'
-      px='32px'
+      py={2}
+      px={8}
       justifyContent='space-between'
     >
       <Center>
         <Image src='/logo.png' alt='Logo' width={32} height={36} />
-        <Text fontSize={32}>Extension Hub</Text>
+        <Text fontSize={32} ml={2}>
+          Extension Hub
+        </Text>
       </Center>
 
       <Center as='nav' gap='md'>
