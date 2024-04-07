@@ -1,14 +1,11 @@
 'use client'
 
 import { Center, Flex, Text } from '@yamada-ui/react'
-import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn } from '@/auth'
 
 export default function Header() {
-  const { data: session, status } = useSession()
-
   return (
     <Flex
       as='header'
@@ -28,13 +25,13 @@ export default function Header() {
         <Link href={''}>home</Link>
         <Link href={''}>home</Link>
       </Center>
-      status: {status}
-      {status !== 'authenticated' && (
-        <div>
-          <p>あなたはログインしていません</p>
-          <button onClick={() => signIn()}>googleでログイン</button>
-        </div>
-      )}
+      <button
+        onClick={() =>
+          signIn('google', { callbackUrl: 'http://localhost:3000' })
+        }
+      >
+        googleでログイン
+      </button>
     </Flex>
   )
 }
