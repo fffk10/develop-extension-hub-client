@@ -1,4 +1,4 @@
-import Trend from '@/app/features/home/trend'
+import Trend from '@/src/app/features/home/trend'
 
 export default function Home() {
   return (

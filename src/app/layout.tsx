@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { UIProvider } from '@yamada-ui/react'
-import { colorModeManager, customConfig } from '@/app/features/theme'
-import Header from '@/app/components/layout/header'
-import Footer from '@/app/components/layout/footer'
-import Main from '@/app/components/layout/main'
+import { colorModeManager, customConfig } from '@/src/app/features/theme'
+import Header from '@/src/app/components/layout/header'
+import Footer from '@/src/app/components/layout/footer'
+import Main from '@/src/app/components/layout/main'
+import NextAuthProvider from '@/src/app/providers/nextauth'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -24,13 +25,15 @@ export default function RootLayout({
   return (
     <html lang='ja'>
       <body className={roboto.className}>
-        <UIProvider config={customConfig} colorModeManager={colorModeManager}>
-          <Header />
+        <NextAuthProvider>
+          <UIProvider config={customConfig} colorModeManager={colorModeManager}>
+            <Header />
 
-          <Main>{children}</Main>
+            <Main>{children}</Main>
 
-          <Footer />
-        </UIProvider>
+            <Footer />
+          </UIProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )

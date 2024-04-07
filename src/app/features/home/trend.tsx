@@ -1,15 +1,19 @@
 'use client'
 
-import Section from '@/app/components/layout/section'
+import Section from '@/src/app/components/layout/section'
 import {
   Box,
+  Button,
   Card,
   CardBody,
   CardHeader,
+  Container,
+  FileInput,
   Flex,
   Heading,
   Text,
 } from '@yamada-ui/react'
+import { useState } from 'react'
 
 const dummyData = [
   { name: '拡張機能1', description: '拡張機能1の説明', rating: 4 },
@@ -20,45 +24,10 @@ const dummyData = [
 ]
 
 export default function Trend() {
-  const fetchVSCode = async () => {
-    const response = await fetch(
-      'https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery',
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json;api-version=7.2-preview.1;excludeUrls=true',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          filters: [
-            {
-              criteria: [
-                {
-                  filterType: 8,
-                  value: 'Microsoft.VisualStudio.Code',
-                },
-                {
-                  filterType: 10,
-                  value: 'vibrancy continue',
-                },
-                {
-                  filterType: 12,
-                  value: '37888',
-                },
-              ],
-              pageNumber: 1,
-              pageSize: 100,
-              sortBy: 0,
-              sortOrder: 0,
-            },
-          ],
-          flags: 870,
-        }),
-      }
-    )
+  const [file, setFile] = useState<File[] | undefined>(undefined)
 
-    const data = await response.json()
-    console.log(data)
+  const handleImport = () => {
+    console.log(file)
   }
 
   return (
@@ -84,9 +53,11 @@ export default function Trend() {
         {dummyData.length === 0 && <Text>データがありません</Text>}
       </Flex>
 
-      <Box mt={4}>
-        <button onClick={fetchVSCode}>VS Code の拡張機能を取得</button>
-      </Box>
+      <Container>
+        <FileInput value={file} onChange={setFile} placeholder='input file' />
+
+        <Button onClick={handleImport}>Import</Button>
+      </Container>
     </Section>
   )
 }
